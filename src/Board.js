@@ -140,31 +140,43 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      var index = majorDiagonalColumnIndexAtFirstRow;
-      var row = this.get(index);
-      var found = false;
-      if (row[i] === 1) {
-        if (found) {
-          return true;
+      var ind = majorDiagonalColumnIndexAtFirstRow;
+      var len = this.get('n');
+      var count = 0;
+
+      for (var i = 0; i < len; i++) {
+        var row = this.get(i);
+        if (row[ind] === 1) {
+          count++;
         }
-        found = true;
+        ind++;
       }
-      return false;
+      return count > 1;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
       var found = false;
-      for (let i = 0; i < this.get('n'); i++) {
-        var row = this.get(i);
-        if (row[i] === 1) {
-          if (found) {
-            return true;
+      var len = this.get('n');
+      var count = 0;
+      //Check upper triangle
+      for (let j = 0; j < len; j++) {
+        if (this.hasMajorDiagonalConflictAt(j)) {
+          return true;
+        }
+        
+      }
+
+      for (let j = 1; j < len; j++) {
+        var row = this.get(j);
+        for (let i = 0; i < j; i++) {
+          if (row[i] === 1) {
+            count++;
           }
-          found = true;
         }
       }
-      return false;
+
+      return count > 1;
     },
 
 
