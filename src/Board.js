@@ -90,18 +90,6 @@
       return false;
     },
 
-    // test if any rows on this board contain conflicts
-    hasAnyRowConflicts: function() {
-      for (let i = 0; i < this.get('n'); i++) {
-        if (hasRowConflictAt(i)) {
-          return true;
-        }
-      }
-      return false;
-    },
-
-
-
     // COLUMNS - run from top to bottom
     // --------------------------------------------------------------
     //
@@ -109,7 +97,7 @@
     hasColConflictAt: function(colIndex) {
       //this.get(rowIndex)[colIndex]
       for (let i = 0; i < this.get('n'); i++) {
-        var row = this.get(rowIndex);
+        var row = this.get(colIndex);
         if (row[colIndex] === 1) {
           return true;
         }
@@ -117,10 +105,22 @@
       return false;
     },
 
+
+    // test if any rows on this board contain conflicts
+    hasAnyRowConflicts: function() {
+      for (let i = 0; i < this.get('n'); i++) {
+        if (this.hasRowConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
+    },
+
+
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
       for (let i = 0; i < this.get('n'); i++) {
-        if (hasColConflictAt(i)) {
+        if (this.hasColConflictAt(i)) {
           return true;
         }
       }
