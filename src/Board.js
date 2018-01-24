@@ -83,11 +83,11 @@
       var rows = this.get(rowIndex);
       console.log(rows);
       for (let i = 0; i < rows.length; i++) {
-        if (rows[0][i] === 1) {
+        if (rows[i] === 1) {
           return true;
         }
       }
-      return false; // fixme
+      return false;
     },
 
     // test if any rows on this board contain conflicts
@@ -97,7 +97,7 @@
           return true;
         }
       }
-      return false; // fixme
+      return false;
     },
 
 
@@ -107,12 +107,24 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      return false; // fixme
+      //this.get(rowIndex)[colIndex]
+      for (i = 0; i < this.get('n'); i++) {
+        var row = this.get(rowIndex);
+        if (row[colIndex] === 1) {
+          return true;
+        }
+      }
+      return false;
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
-      return false; // fixme
+      for (let i = 0; i < this.get('n'); i++) {
+        if (hasColConflictAt(i)) {
+          return true;
+        }
+      }
+      return false;
     },
 
 
