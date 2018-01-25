@@ -99,8 +99,6 @@
       return false;
     },
 
-
-
     // COLUMNS - run from top to bottom
     // --------------------------------------------------------------
     //
@@ -116,6 +114,7 @@
       }
       return count > 1;
     },
+
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
