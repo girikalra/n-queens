@@ -159,6 +159,7 @@
       var found = false;
       var len = this.get('n');
       var count = 0;
+      var index = 0;
       //Check upper triangle
       for (let j = 0; j < len; j++) {
         if (this.hasMajorDiagonalConflictAt(j)) {
@@ -169,11 +170,11 @@
       //checks for lower triangle.
       for (let j = 1; j < len; j++) {
         var row = this.get(j);
-        for (let i = 0; i < j; i++) {
-          if (row[i] === 1) {
-            count++;
-          }
+        //index = 0;
+        if (row[index] === 1) {
+          count++;
         }
+        index++;
       }
 
       return count > 1;
@@ -238,24 +239,3 @@
   };
 
 }());
-
-
-var rowConflict = [
-  [0, 0, 0, 0],
-  [1, 1, 0, 0],
-  [0, 0, 0, 0],
-  [0, 0, 0, 0]
-];
-
-var hasRowConflictAt = function(arr, rowIndex) {
-  //this.get(rowIndex)[colIndex]
-  var rows = arr[rowIndex];
-  for (let i = 0; i < rows.length; i++) {
-    if (rows[i] === 1) {
-      return true;
-    }
-  }
-  return false;
-};
-
-console.log(hasRowConflictAt(rowConflict, 1));
