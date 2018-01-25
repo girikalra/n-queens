@@ -166,7 +166,7 @@
         }
         
       }
-
+      //checks for lower triangle.
       for (let j = 1; j < len; j++) {
         var row = this.get(j);
         for (let i = 0; i < j; i++) {
@@ -187,31 +187,38 @@
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
       var index = minorDiagonalColumnIndexAtFirstRow;
-      var row = this.get(0);
-      var found = false;
-      if (row[index] === 1) {
-        if (found) {
-          return true;
+      var len = this.get('n');
+      var count = 0;
+      for (let j = len - 1; j >= 0; j--) {
+        var row = this.get(j);
+        if (row[index] === 1) {
+          count++;
         }
-        found = true;
+        index++;
       }
-      return false;
+      return count > 1;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
       var len = this.get('n');
-      var found = false;
-      for (let i = 0, j = len - 1; i < len && j >= 0; i++, j--) {
-        var row = this.get(i);
-        if (row[j] === 1) {
-          if (found) {
-            return true;
-          }
-          found = true;
+      var count = 0;
+      for (let i = 0; i < len; i++) {
+        if (this.hasMinorDiagonalConflictAt(i)) {
+          return true;
         }
       }
-      return false;
+
+      //checks the upper triangle
+      for (let j = 1; j < len; j++) {
+        var row = this.get(j);
+        for (let i = 0; i < j; i++) {
+          if (row[i] === 1) {
+            count++;
+          }
+        }
+      }
+      return count > 1;
     },
 
     /*--------------------  End of Helper Functions  ---------------------*/
