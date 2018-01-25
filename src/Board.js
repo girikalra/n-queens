@@ -201,23 +201,26 @@
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
+
       var len = this.get('n');
       var count = 0;
+      var index = 0;
+      //Check lower minor triangle
       for (let i = 0; i < len; i++) {
         if (this.hasMinorDiagonalConflictAt(i)) {
           return true;
         }
       }
 
-      //checks the upper triangle
-      for (let j = 1; j < len; j++) {
+      //checks for upper minor triangle.
+      for (let j = len - 2; j >= 0; j--) {
         var row = this.get(j);
-        for (let i = 0; i < j; i++) {
-          if (row[i] === 1) {
-            count++;
-          }
+        if (row[index] === 1) {
+          count++;
         }
+        index++;
       }
+
       return count > 1;
     },
 
