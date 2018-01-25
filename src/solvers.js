@@ -60,38 +60,40 @@ window.findNQueensSolution = function(n) {
     solution.togglePiece(0, 0);
   } else if (n > 3) {
     var count = 0;
-    //for(var i = 0; i < n; i++) {
-      
     var recursiveSearch = function(solution, count, curRow) {
       if (curRow === n && count === n) {
-        return solution.rows();
+        //console.log(solution.rows());
+        return true;
       } else if (curRow === n && count < n) {
         return false;
       }
       //check current row for any conflicts when toggled.
       var row = solution.get(curRow);
+      //console.log('curRow: ->' + curRow + 'Count: ->' + count);
       for (let i = 0; i < n; i++) {
+        solution.togglePiece(curRow, i);
         if (!solution.hasAnyQueenConflictsOn(curRow, i)) { //we check if current spot has Queen conflicts
-          solution.togglePiece(curRow, i);
           count++;
+          //console.log('curCount: -> ' + count);
           var result = recursiveSearch(solution, count, curRow + 1);
           if (!result) {
             solution.togglePiece(curRow, i);
             count--;
+            //console.log('Conflict subtree: -> Count: -> ' + count);
           } else {
-            return result;
+            return true;
           }
         } else {
-          return false;
+          solution.togglePiece(curRow, i);
         }
       }
-      return solution.rows();
     };
 
-    return recursiveSearch(solution, count, 0);
+    var val = recursiveSearch(solution, count, 0);
+    if (val) {
+      return solution.rows();
+    }
   }
-
-  
 
   console.log('Single solution for ' + n + ' queens:', JSON.stringify(solution));
   return solution.rows();
