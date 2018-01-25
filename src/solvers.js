@@ -33,6 +33,7 @@ window.findNRooksSolution = function(n) {
   }
 
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
+  console.log(solution);
   return solution.rows();
 };
 
